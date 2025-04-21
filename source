@@ -19,6 +19,7 @@ local UserInputService = game:GetService("UserInputService")
 
 Kurai_Lib.Settings = {
     ToggleKey = Enum.KeyCode.RightControl,
+    TogglingUI = false
 }
 Kurai_Lib.Flags = {}
 Kurai_Lib.Theme = {
@@ -91,6 +92,12 @@ function Kurai_Lib.new(options)
 end
 
 function Kurai_Lib:ToggleUI()
+
+    if Kurai_Lib.Settings.TogglingUI then
+        return
+    end
+
+    Kurai_Lib.Settings.TogglingUI = true
     self.Open = not self.Open
     
     if self.Open then
@@ -112,6 +119,7 @@ function Kurai_Lib:ToggleUI()
             Position = targetPos,
             BackgroundTransparency = 0
         })
+        Kurai_Lib.Settings.TogglingUI = false
     else
         local currentPos = self.MainWindow.Position
         
@@ -126,6 +134,7 @@ function Kurai_Lib:ToggleUI()
             BackgroundTransparency = 1
         })
         task.wait(0.5) -- default tween time in .Tween lol
+        Kurai_Lib.Settings.TogglingUI = false
         self.MainWindow.Visible = false
     end
 end
