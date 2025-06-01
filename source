@@ -423,11 +423,11 @@ function pixel_Lib:_internal_createmainwindow(options)
     self.GameTitle.Font = Enum.Font.RobotoMono
     self.GameTitle.Text = options.GameName or "[GAME NAME]"
     self.GameTitle.TextColor3 = pixel_Lib.Theme.Text
-    self.GameTitle.TextSize = 18
+    self.GameTitle.TextSize = 24
     self.GameTitle.TextXAlignment = Enum.TextXAlignment.Left
     self.GameTitle.BackgroundTransparency = 1
-    self.GameTitle.Position = UDim2.new(0.43, -150, 0.44, -9)
-    self.GameTitle.Size = UDim2.new(0, 300, 0, 18)
+    self.GameTitle.Position = UDim2.new(0, 20, 0.44, -12)
+    self.GameTitle.Size = UDim2.new(1, -40, 0, 24)
     self.GameTitle.Parent = self.TitleBar
 
     self.LogoIcon = Instance.new("ImageLabel")
@@ -449,8 +449,8 @@ function pixel_Lib:_internal_createmainwindow(options)
     self.ScriptHubName.TextSize = 18
     self.ScriptHubName.TextXAlignment = Enum.TextXAlignment.Left
     self.ScriptHubName.BackgroundTransparency = 1
-    self.ScriptHubName.Position = UDim2.new(0.43, -150, 0.78, -9)
-    self.ScriptHubName.Size = UDim2.new(0, 300, 0, 18)
+    self.ScriptHubName.Position = UDim2.new(0, 20, 0.78, -9)
+    self.ScriptHubName.Size = UDim2.new(1, -40, 0, 18)
     self.ScriptHubName.Parent = self.TitleBar
     
     self.TabContainer = Instance.new("Frame")
