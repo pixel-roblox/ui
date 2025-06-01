@@ -1,28 +1,15 @@
---[[
-暗い kurai.
-a sleek roblox ui library based around simplicity, modern design, and csgo inspired aesthetics.
-
-created by @focat on discord - dm me before using any code from this commercially
-licensed under Creative Commons Zero v.10 Universal (CC0 1.0) Public Domain Dedication
-    > states that you may share/modify this code as you please, but NOT commercially
-    > you also must give credit where it is due!
-
-enjoy!
-sorry for messy code :(
-]]--
-
-local Kurai_Lib = {}
-Kurai_Lib.__index = Kurai_Lib
+local pixel_Lib = {}
+pixel_Lib.__index = pixel_Lib
 
 local TweenService = game:GetService("TweenService") -- ts pmo!!!!!!!!!
 local UserInputService = game:GetService("UserInputService")
 
-Kurai_Lib.Settings = {
+pixel_Lib.Settings = {
     ToggleKey = Enum.KeyCode.RightControl,
     TogglingUI = false
 }
-Kurai_Lib.Flags = {}
-Kurai_Lib.Theme = {
+pixel_Lib.Flags = {}
+pixel_Lib.Theme = {
     Main = Color3.fromRGB(20, 20, 20),
     
     Tab = Color3.fromRGB(23, 23, 23),
@@ -35,16 +22,16 @@ Kurai_Lib.Theme = {
     SubText = Color3.fromRGB(89, 89, 89)
 }
 
-function Kurai_Lib.Tween(obj, goal, time, style, direction)
+function pixel_Lib.Tween(obj, goal, time, style, direction)
     local tween = TweenService:Create(obj, TweenInfo.new(time or 0.5, style or Enum.EasingStyle.Quint, direction or Enum.EasingDirection.Out), goal)
     tween:Play()
     return tween
 end
 
-function Kurai_Lib.RippleEffect(btnInstance, color)
+function pixel_Lib.RippleEffect(btnInstance, color)
     local ripple = Instance.new("Frame")
     ripple.Name = "Ripple"
-    ripple.BackgroundColor3 = color or Kurai_Lib.Theme.Accent
+    ripple.BackgroundColor3 = color or pixel_Lib.Theme.Accent
     ripple.BackgroundTransparency = 0.8
     ripple.Size = UDim2.new(0, 0, 0, 0)
     ripple.ZIndex = 10
@@ -64,7 +51,7 @@ function Kurai_Lib.RippleEffect(btnInstance, color)
     
     local targetSize = math.max(btnInstance.AbsoluteSize.X, btnInstance.AbsoluteSize.Y) * 2.5
     
-    Kurai_Lib.Tween(ripple, {
+    pixel_Lib.Tween(ripple, {
         Size = UDim2.new(0, targetSize, 0, targetSize),
         Position = UDim2.new(0, relativeX, 0, relativeY),
         BackgroundTransparency = 1
@@ -73,12 +60,12 @@ function Kurai_Lib.RippleEffect(btnInstance, color)
     game:GetService("Debris"):AddItem(ripple, 0.6)
 end
 
-function Kurai_Lib.new(options)
+function pixel_Lib.new(options)
     options = options or {}
-    local self = setmetatable({}, Kurai_Lib)
+    local self = setmetatable({}, pixel_Lib)
     
     self.ScreenGui = Instance.new("ScreenGui")
-    self.ScreenGui.Name = options.Name or "Kurai_Lib"
+    self.ScreenGui.Name = options.Name or "pixel_Lib"
     self.ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
     self.ScreenGui.ResetOnSpawn = false
     self.ScreenGui.DisplayOrder = 1000
@@ -91,13 +78,13 @@ function Kurai_Lib.new(options)
     return self
 end
 
-function Kurai_Lib:ToggleUI()
+function pixel_Lib:ToggleUI()
 
-    if Kurai_Lib.Settings.TogglingUI then
+    if pixel_Lib.Settings.TogglingUI then
         return
     end
 
-    Kurai_Lib.Settings.TogglingUI = true
+    pixel_Lib.Settings.TogglingUI = true
     self.Open = not self.Open
     
     if self.Open then
@@ -115,11 +102,11 @@ function Kurai_Lib:ToggleUI()
         )
         self.MainWindow.Position = startPos
         
-        Kurai_Lib.Tween(self.MainWindow, {
+        pixel_Lib.Tween(self.MainWindow, {
             Position = targetPos,
             BackgroundTransparency = 0
         })
-        Kurai_Lib.Settings.TogglingUI = false
+        pixel_Lib.Settings.TogglingUI = false
     else
         local currentPos = self.MainWindow.Position
         
@@ -129,17 +116,17 @@ function Kurai_Lib:ToggleUI()
             1, 500
         )
         
-        Kurai_Lib.Tween(self.MainWindow, {
+        pixel_Lib.Tween(self.MainWindow, {
             Position = targetPos,
             BackgroundTransparency = 1
         })
         task.wait(0.5) -- default tween time in .Tween lol
-        Kurai_Lib.Settings.TogglingUI = false
+        pixel_Lib.Settings.TogglingUI = false
         self.MainWindow.Visible = false
     end
 end
 
-function Kurai_Lib:Notify(props)
+function pixel_Lib:Notify(props)
     props = props or {}
     local title = props.Title or "Notification"
     local message = props.Message or ""
@@ -151,7 +138,7 @@ function Kurai_Lib:Notify(props)
     notification.Size = UDim2.new(0, 300, 0, 0)
     notification.Position = UDim2.new(1, -10, 1, 10) -- start below screen
     notification.AnchorPoint = Vector2.new(1, 1)
-    notification.BackgroundColor3 = Kurai_Lib.Theme.Content
+    notification.BackgroundColor3 = pixel_Lib.Theme.Content
     notification.BorderSizePixel = 0
     notification.ClipsDescendants = true
     notification.ZIndex = self.ScreenGui.DisplayOrder + 1
@@ -161,7 +148,7 @@ function Kurai_Lib:Notify(props)
     corner.CornerRadius = UDim.new(0, 4)
     corner.Parent = notification
 
-    local accentColor = Kurai_Lib.Theme.Accent
+    local accentColor = pixel_Lib.Theme.Accent
     if notificationType == "success" then
         accentColor = Color3.fromRGB(76, 175, 80)
     elseif notificationType == "warn" then
@@ -195,7 +182,7 @@ function Kurai_Lib:Notify(props)
     titleLabel.Position = UDim2.new(0, 15, 0, 0)
     titleLabel.BackgroundTransparency = 1
     titleLabel.Text = title
-    titleLabel.TextColor3 = Kurai_Lib.Theme.Text
+    titleLabel.TextColor3 = pixel_Lib.Theme.Text
     titleLabel.TextSize = 16
     titleLabel.Font = Enum.Font.RobotoMono
     titleLabel.TextXAlignment = Enum.TextXAlignment.Left
@@ -208,7 +195,7 @@ function Kurai_Lib:Notify(props)
     messageLabel.Position = UDim2.new(0, 15, 0, 25)
     messageLabel.BackgroundTransparency = 1
     messageLabel.Text = message
-    messageLabel.TextColor3 = Kurai_Lib.Theme.SubText
+    messageLabel.TextColor3 = pixel_Lib.Theme.SubText
     messageLabel.TextSize = 14
     messageLabel.Font = Enum.Font.RobotoMono
     messageLabel.TextXAlignment = Enum.TextXAlignment.Left
@@ -228,7 +215,7 @@ function Kurai_Lib:Notify(props)
     messageLabel.Size = UDim2.new(1, -25, 0, textSize.Y)
     notification.Size = UDim2.new(0, 300, 0, textSize.Y + 45)
 
-    Kurai_Lib.Tween(notification, {
+    pixel_Lib.Tween(notification, {
         Position = UDim2.new(1, -10, 1, -10)
     }, 0.3)
 
@@ -236,7 +223,7 @@ function Kurai_Lib:Notify(props)
     for _, existingNotif in next, self.Notifications do
         if existingNotif and existingNotif.Parent then
             local currentPos = existingNotif.Position
-            Kurai_Lib.Tween(existingNotif, {
+            pixel_Lib.Tween(existingNotif, {
                 Position = UDim2.new(
                     currentPos.X.Scale, currentPos.X.Offset,
                     currentPos.Y.Scale, currentPos.Y.Offset - totalHeight
@@ -249,19 +236,19 @@ function Kurai_Lib:Notify(props)
     task.spawn(function()
         task.wait(duration)
         
-        Kurai_Lib.Tween(notification, {
+        pixel_Lib.Tween(notification, {
             BackgroundTransparency = 1
         }, 0.3)
         
-        Kurai_Lib.Tween(titleLabel, {
+        pixel_Lib.Tween(titleLabel, {
             TextTransparency = 1
         }, 0.3)
         
-        Kurai_Lib.Tween(messageLabel, {
+        pixel_Lib.Tween(messageLabel, {
             TextTransparency = 1
         }, 0.3)
         
-        Kurai_Lib.Tween(accentBar, {
+        pixel_Lib.Tween(accentBar, {
             BackgroundTransparency = 1
         }, 0.3)
         
@@ -277,7 +264,7 @@ function Kurai_Lib:Notify(props)
         for _, remainingNotif in next, self.Notifications do
             if remainingNotif and remainingNotif.Parent then
                 local currentPos = remainingNotif.Position
-                Kurai_Lib.Tween(remainingNotif, {
+                pixel_Lib.Tween(remainingNotif, {
                     Position = UDim2.new(
                         currentPos.X.Scale, currentPos.X.Offset,
                         currentPos.Y.Scale, currentPos.Y.Offset + totalHeight
@@ -292,10 +279,10 @@ function Kurai_Lib:Notify(props)
     return notification
 end
 
-function Kurai_Lib:_internal_createloader(options)
+function pixel_Lib:_internal_createloader(options)
     self.Loader = Instance.new("Frame")
     self.Loader.Name = "Loader"
-    self.Loader.BackgroundColor3 = Kurai_Lib.Theme.Main
+    self.Loader.BackgroundColor3 = pixel_Lib.Theme.Main
     self.Loader.BorderSizePixel = 0
     self.Loader.Position = UDim2.new(0.5, -150, 0.5, -150)
     self.Loader.Size = UDim2.new(0, 300, 0, 300)
@@ -305,18 +292,18 @@ function Kurai_Lib:_internal_createloader(options)
     -- [ Loader elements (status bar, text, etc) ]
     self.LoaderBar = Instance.new("Frame")
     self.LoaderBar.Name = "LoaderBar"
-    self.LoaderBar.BackgroundColor3 = Kurai_Lib.Theme.Accent
+    self.LoaderBar.BackgroundColor3 = pixel_Lib.Theme.Accent
     self.LoaderBar.BorderSizePixel = 0
     self.LoaderBar.Size = UDim2.new(0, 300, 0, 1)
     self.LoaderBar.Parent = self.Loader
     -- [ gay rainbow ]
-    Kurai_Lib.Rainbow(self.LoaderBar, 0.5)
+    pixel_Lib.Rainbow(self.LoaderBar, 0.5)
     
     self.StatusText = Instance.new("TextLabel")
     self.StatusText.Name = "StatusText"
     self.StatusText.Font = Enum.Font.RobotoMono
     self.StatusText.Text = "initializing..."
-    self.StatusText.TextColor3 = Kurai_Lib.Theme.SubText
+    self.StatusText.TextColor3 = pixel_Lib.Theme.SubText
     self.StatusText.TextSize = 14
     self.StatusText.BackgroundTransparency = 1
     self.StatusText.Position = UDim2.new(0.5, -150, 0.1, 0)
@@ -324,7 +311,7 @@ function Kurai_Lib:_internal_createloader(options)
     self.StatusText.Parent = self.Loader
 
     self.LoaderLogo = Instance.new("ImageLabel")
-    self.LoaderLogo.Image = "rbxassetid://108502703403650"
+    self.LoaderLogo.Image = "rbxassetid://108069710329003"
     self.LoaderLogo.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     self.LoaderLogo.BackgroundTransparency = 1
     self.LoaderLogo.BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -335,7 +322,7 @@ function Kurai_Lib:_internal_createloader(options)
 
     self.LoaderCredits = Instance.new("TextLabel")
     self.LoaderCredits.Font = Enum.Font.RobotoMono
-    self.LoaderCredits.Text = "暗い - kurai."
+    self.LoaderCredits.Text = "暗い - pixel."
     self.LoaderCredits.TextColor3 = Color3.fromRGB(89.00000229477882, 89.00000229477882, 89.00000229477882)
     self.LoaderCredits.TextSize = 12
     self.LoaderCredits.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -350,9 +337,9 @@ function Kurai_Lib:_internal_createloader(options)
     self:_internal_initload(options)
 end
 
-function Kurai_Lib:_internal_initload(options)
+function pixel_Lib:_internal_initload(options)
     self.Loader.Visible = true
-    Kurai_Lib.Tween(self.Loader, {BackgroundTransparency = 0})
+    pixel_Lib.Tween(self.Loader, {BackgroundTransparency = 0})
     
     -- ts pmo (doesnt do anything related to version checking YET...)
     self:_internal_setloaderstatus("fetching version...")
@@ -372,16 +359,16 @@ function Kurai_Lib:_internal_initload(options)
     
     self:_internal_createmainwindow(options)
     
-    Kurai_Lib.Tween(self.Loader, {BackgroundTransparency = 1})
+    pixel_Lib.Tween(self.Loader, {BackgroundTransparency = 1})
     -- [ fade out all text, images, frames ]
     for _, child in next, self.Loader:GetDescendants() do
         if child:IsA("GuiObject") then
-            Kurai_Lib.Tween(child, {BackgroundTransparency = 1})
+            pixel_Lib.Tween(child, {BackgroundTransparency = 1})
             if child:IsA("TextLabel") or child:IsA("TextButton") then
-                Kurai_Lib.Tween(child, {TextTransparency = 1})
+                pixel_Lib.Tween(child, {TextTransparency = 1})
             end
             if child:IsA("ImageLabel") or child:IsA("ImageButton") then
-                Kurai_Lib.Tween(child, {ImageTransparency = 1})
+                pixel_Lib.Tween(child, {ImageTransparency = 1})
             end
         end
     end
@@ -390,17 +377,17 @@ function Kurai_Lib:_internal_initload(options)
     self.Loader.Visible = false
 end
 
-function Kurai_Lib:_internal_setloaderstatus(text)
+function pixel_Lib:_internal_setloaderstatus(text)
     self.StatusText.Text = text
 end
 
-function Kurai_Lib:_internal_createmainwindow(options)
+function pixel_Lib:_internal_createmainwindow(options)
     self.MainWindow = Instance.new("Frame")
     self.MainWindow.Name = "MainWindow"
     self.MainWindow.Size = UDim2.new(0, 500, 0, 500)
     self.MainWindow.Position = UDim2.new(0.5, -250, 0.5, -250)
     self.MainWindow.AnchorPoint = Vector2.new(0.5, 0.5)
-    self.MainWindow.BackgroundColor3 = Kurai_Lib.Theme.Main
+    self.MainWindow.BackgroundColor3 = pixel_Lib.Theme.Main
     self.MainWindow.BorderSizePixel = 0
     self.MainWindow.ClipsDescendants = true
     self.MainWindow.Parent = self.ScreenGui
@@ -413,7 +400,7 @@ function Kurai_Lib:_internal_createmainwindow(options)
     
     self.TitleAccent = Instance.new("Frame")
     self.TitleAccent.Name = "TitleAccent"
-    self.TitleAccent.BackgroundColor3 = Kurai_Lib.Theme.Accent
+    self.TitleAccent.BackgroundColor3 = pixel_Lib.Theme.Accent
     self.TitleAccent.BorderSizePixel = 0
     self.TitleAccent.Size = UDim2.new(1, 0, 0, 1)
     self.TitleAccent.Parent = self.TitleBar
@@ -422,7 +409,7 @@ function Kurai_Lib:_internal_createmainwindow(options)
     self.GameTitle.Name = "GameTitle"
     self.GameTitle.Font = Enum.Font.RobotoMono
     self.GameTitle.Text = options.GameName or "[GAME NAME]"
-    self.GameTitle.TextColor3 = Kurai_Lib.Theme.Text
+    self.GameTitle.TextColor3 = pixel_Lib.Theme.Text
     self.GameTitle.TextSize = 18
     self.GameTitle.TextXAlignment = Enum.TextXAlignment.Left
     self.GameTitle.BackgroundTransparency = 1
@@ -431,7 +418,7 @@ function Kurai_Lib:_internal_createmainwindow(options)
     self.GameTitle.Parent = self.TitleBar
 
     self.LogoIcon = Instance.new("ImageLabel")
-    self.LogoIcon.Image = "rbxassetid://108502703403650"
+    self.LogoIcon.Image = "rbxassetid://108069710329003"
     self.LogoIcon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     self.LogoIcon.BackgroundTransparency = 1
     self.LogoIcon.BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -445,7 +432,7 @@ function Kurai_Lib:_internal_createmainwindow(options)
     self.ScriptHubName.Name = "ScriptHubName"
     self.ScriptHubName.Font = Enum.Font.RobotoMono
     self.ScriptHubName.Text = options.ScriptHubName or "JEWISH SCRIPT HUB"
-    self.ScriptHubName.TextColor3 = Kurai_Lib.Theme.SubText
+    self.ScriptHubName.TextColor3 = pixel_Lib.Theme.SubText
     self.ScriptHubName.TextSize = 18
     self.ScriptHubName.TextXAlignment = Enum.TextXAlignment.Left
     self.ScriptHubName.BackgroundTransparency = 1
@@ -473,7 +460,7 @@ function Kurai_Lib:_internal_createmainwindow(options)
 
     -- [ toggle key ]
     UserInputService.InputBegan:Connect(function(input, gpe)
-        if not gpe and input.KeyCode == Kurai_Lib.Settings.ToggleKey then
+        if not gpe and input.KeyCode == pixel_Lib.Settings.ToggleKey then
             self:ToggleUI()
         end
     end)
@@ -482,15 +469,15 @@ function Kurai_Lib:_internal_createmainwindow(options)
     self:Draggable(self.MainWindow, self.TitleBar)
 end
 
-function Kurai_Lib:SetToggleKeybind(keyCode)
+function pixel_Lib:SetToggleKeybind(keyCode)
     if keyCode and table.find(Enum.KeyCode:GetEnumItems(), keyCode) then
-        Kurai_Lib.Settings.ToggleKey = keyCode
+        pixel_Lib.Settings.ToggleKey = keyCode
     else
-        warn("[Kurai] Invalid keybind!")
+        warn("[pixel] Invalid keybind!")
     end
 end
 
-function Kurai_Lib:Draggable(frame, handle)
+function pixel_Lib:Draggable(frame, handle)
     local dragStartPos, frameStartPos
     handle.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 then
@@ -515,7 +502,7 @@ function Kurai_Lib:Draggable(frame, handle)
     end)
 end
 
-function Kurai_Lib:InitTabs(tabNames)
+function pixel_Lib:InitTabs(tabNames)
     self.Tabs = {}
     self.CurrentTab = nil
     
@@ -545,9 +532,9 @@ function Kurai_Lib:InitTabs(tabNames)
         tabButton.Name = tabName
         tabButton.Text = tabName
         tabButton.Font = Enum.Font.RobotoMono
-        tabButton.TextColor3 = Kurai_Lib.Theme.Text
+        tabButton.TextColor3 = pixel_Lib.Theme.Text
         tabButton.TextSize = 14
-        tabButton.BackgroundColor3 = Kurai_Lib.Theme.Tab
+        tabButton.BackgroundColor3 = pixel_Lib.Theme.Tab
         tabButton.Size = UDim2.new(0.23, 0, 0, 34)
         tabButton.LayoutOrder = i
         
@@ -562,7 +549,7 @@ function Kurai_Lib:InitTabs(tabNames)
         tabContent.Size = UDim2.new(1, 0, 1, 0)
         tabContent.BackgroundTransparency = 1
         tabContent.ScrollBarThickness = 4
-        tabContent.ScrollBarImageColor3 = Kurai_Lib.Theme.Content
+        tabContent.ScrollBarImageColor3 = pixel_Lib.Theme.Content
         tabContent.BorderSizePixel = 0
         tabContent.Visible = false
         tabContent.Parent = self.ContentContainer
@@ -629,18 +616,18 @@ function Kurai_Lib:InitTabs(tabNames)
     end
 end
 
-function Kurai_Lib:SwitchTab(tabName)
+function pixel_Lib:SwitchTab(tabName)
     if self.CurrentTab then
-        Kurai_Lib.Tween(self.CurrentTab.TabButton, {BackgroundColor3 = Kurai_Lib.Theme.Tab})
+        pixel_Lib.Tween(self.CurrentTab.TabButton, {BackgroundColor3 = pixel_Lib.Theme.Tab})
         self.CurrentTab.Content.Visible = false
     end
     
     self.CurrentTab = self.Tabs[tabName]
-    Kurai_Lib.Tween(self.CurrentTab.TabButton, {BackgroundColor3 = Kurai_Lib.Theme.TabAccent})
+    pixel_Lib.Tween(self.CurrentTab.TabButton, {BackgroundColor3 = pixel_Lib.Theme.TabAccent})
     self.CurrentTab.Content.Visible = true
 end
 
-function Kurai_Lib:_createButton(tabName, props, flag)
+function pixel_Lib:_createButton(tabName, props, flag)
     props = props or {}
     local tab = self.Tabs[tabName]
     if not tab then return nil end
@@ -649,9 +636,9 @@ function Kurai_Lib:_createButton(tabName, props, flag)
     btnInstance.Name = props.Text or "Button"
     btnInstance.Text = props.Text or "Button"
     btnInstance.Font = Enum.Font.RobotoMono
-    btnInstance.TextColor3 = Kurai_Lib.Theme.Text
+    btnInstance.TextColor3 = pixel_Lib.Theme.Text
     btnInstance.TextSize = 16
-    btnInstance.BackgroundColor3 = Kurai_Lib.Theme.Tab
+    btnInstance.BackgroundColor3 = pixel_Lib.Theme.Tab
     btnInstance.Size = UDim2.new(1, 0, 0, 35)
     btnInstance.LayoutOrder = #tab.Elements + 1
     btnInstance.Parent = tab.Content
@@ -661,15 +648,15 @@ function Kurai_Lib:_createButton(tabName, props, flag)
     corner.Parent = btnInstance
     
     btnInstance.MouseEnter:Connect(function()
-        Kurai_Lib.Tween(btnInstance, {BackgroundColor3 = Kurai_Lib.Theme.Accent})
+        pixel_Lib.Tween(btnInstance, {BackgroundColor3 = pixel_Lib.Theme.Accent})
     end)
     
     btnInstance.MouseLeave:Connect(function()
-        Kurai_Lib.Tween(btnInstance, {BackgroundColor3 = Kurai_Lib.Theme.Tab})
+        pixel_Lib.Tween(btnInstance, {BackgroundColor3 = pixel_Lib.Theme.Tab})
     end)
     
     btnInstance.MouseButton1Click:Connect(function()
-        Kurai_Lib.RippleEffect(btnInstance)
+        pixel_Lib.RippleEffect(btnInstance)
         if props.Callback then
             props.Callback(btnInstance)
         end
@@ -695,7 +682,7 @@ function Kurai_Lib:_createButton(tabName, props, flag)
     return control
 end
 
-function Kurai_Lib:_createLabel(tabName, props)
+function pixel_Lib:_createLabel(tabName, props)
     props = props or {}
     local tab = self.Tabs[tabName]
     if not tab then return nil end
@@ -704,7 +691,7 @@ function Kurai_Lib:_createLabel(tabName, props)
     label.Name = props.Text or "Label"
     label.Text = props.Text or ""
     label.Font = Enum.Font.RobotoMono
-    label.TextColor3 = Kurai_Lib.Theme.Text
+    label.TextColor3 = pixel_Lib.Theme.Text
     label.TextSize = 16
     label.TextXAlignment = props.Alignment or Enum.TextXAlignment.Left
     label.TextYAlignment = Enum.TextYAlignment.Top
@@ -729,14 +716,14 @@ function Kurai_Lib:_createLabel(tabName, props)
     return control
 end
 
-function Kurai_Lib:_createSplitter(tabName, props)
+function pixel_Lib:_createSplitter(tabName, props)
     props = props or {}
     local tab = self.Tabs[tabName]
     if not tab then return nil end
     
     local splitter = Instance.new("Frame")
     splitter.Name = props.Text or "Splitter" 
-    splitter.BackgroundColor3 = Kurai_Lib.Theme.Accent
+    splitter.BackgroundColor3 = pixel_Lib.Theme.Accent
     splitter.BorderSizePixel = 0
     splitter.Size = UDim2.new(1, 0, 0, 1)
     splitter.LayoutOrder = #tab.Elements + 1
@@ -748,7 +735,7 @@ function Kurai_Lib:_createSplitter(tabName, props)
     local control = {
         Instance = splitter,
         SetColor = function(color)
-            Kurai_Lib.Tween(splitter, {BackgroundColor3 = color})
+            pixel_Lib.Tween(splitter, {BackgroundColor3 = color})
             return control
         end,
         GetColor = function()
@@ -759,7 +746,7 @@ function Kurai_Lib:_createSplitter(tabName, props)
     return control
 end
 
-function Kurai_Lib:_createSlider(tabName, props, flag)
+function pixel_Lib:_createSlider(tabName, props, flag)
     props = props or {}
     local tab = self.Tabs[tabName]
     if not tab then return nil end
@@ -775,7 +762,7 @@ function Kurai_Lib:_createSlider(tabName, props, flag)
     label.Name = "Label"
     label.Text = props.Text or "Slider"
     label.Font = Enum.Font.RobotoMono
-    label.TextColor3 = Kurai_Lib.Theme.Text
+    label.TextColor3 = pixel_Lib.Theme.Text
     label.TextSize = 16
     label.TextXAlignment = Enum.TextXAlignment.Left
     label.BackgroundTransparency = 1
@@ -790,7 +777,7 @@ function Kurai_Lib:_createSlider(tabName, props, flag)
     valueLabel.Name = "Value"
     valueLabel.Text = props.State and tostring(props.State)..(props.Suffix or "") or "0"
     valueLabel.Font = Enum.Font.RobotoMono
-    valueLabel.TextColor3 = Kurai_Lib.Theme.SubText
+    valueLabel.TextColor3 = pixel_Lib.Theme.SubText
     valueLabel.TextSize = 12
     valueLabel.TextXAlignment = Enum.TextXAlignment.Right
     valueLabel.BackgroundTransparency = 1
@@ -804,7 +791,7 @@ function Kurai_Lib:_createSlider(tabName, props, flag)
     
     local track = Instance.new("Frame")
     track.Name = "Track"
-    track.BackgroundColor3 = Kurai_Lib.Theme.Content
+    track.BackgroundColor3 = pixel_Lib.Theme.Content
     track.BorderSizePixel = 0
     track.Position = UDim2.new(0, 0, 0, 36)
     track.Size = UDim2.new(1, 0, 0, 4)
@@ -816,7 +803,7 @@ function Kurai_Lib:_createSlider(tabName, props, flag)
     
     local fill = Instance.new("Frame")
     fill.Name = "Fill"
-    fill.BackgroundColor3 = Kurai_Lib.Theme.Accent
+    fill.BackgroundColor3 = pixel_Lib.Theme.Accent
     fill.BorderSizePixel = 0
     fill.Size = UDim2.new(0, 0, 1, 0)
     fill.Parent = track
@@ -916,7 +903,7 @@ function Kurai_Lib:_createSlider(tabName, props, flag)
     return control
 end
 
-function Kurai_Lib:_createToggle(tabName, props, flag)
+function pixel_Lib:_createToggle(tabName, props, flag)
     props = props or {}
     local tab = self.Tabs[tabName]
     if not tab then return nil end
@@ -932,7 +919,7 @@ function Kurai_Lib:_createToggle(tabName, props, flag)
     label.Name = "Label"
     label.Text = props.Text or "Toggle"
     label.Font = Enum.Font.RobotoMono
-    label.TextColor3 = Kurai_Lib.Theme.Text
+    label.TextColor3 = pixel_Lib.Theme.Text
     label.TextSize = 16
     label.TextXAlignment = Enum.TextXAlignment.Left
     label.BackgroundTransparency = 1
@@ -947,7 +934,7 @@ function Kurai_Lib:_createToggle(tabName, props, flag)
     toggleButton.Name = "ToggleButton"
     toggleButton.Text = ""
     toggleButton.AnchorPoint = Vector2.new(1, 0.5)
-    toggleButton.BackgroundColor3 = Kurai_Lib.Theme.Tab
+    toggleButton.BackgroundColor3 = pixel_Lib.Theme.Tab
     toggleButton.Position = UDim2.new(1, 0, 0.5, 0)
     toggleButton.Size = UDim2.new(0, 36, 0, 18)
     toggleButton.Parent = toggle
@@ -975,11 +962,11 @@ function Kurai_Lib:_createToggle(tabName, props, flag)
     
     local function updateToggle()
         if state then
-            Kurai_Lib.Tween(toggleButton, {BackgroundColor3 = Kurai_Lib.Theme.Accent})
-            Kurai_Lib.Tween(dot, {Position = UDim2.new(1, -18, 0.5, 0)})
+            pixel_Lib.Tween(toggleButton, {BackgroundColor3 = pixel_Lib.Theme.Accent})
+            pixel_Lib.Tween(dot, {Position = UDim2.new(1, -18, 0.5, 0)})
         else
-            Kurai_Lib.Tween(toggleButton, {BackgroundColor3 = Kurai_Lib.Theme.Tab})
-            Kurai_Lib.Tween(dot, {Position = UDim2.new(0, 2, 0.5, 0)})
+            pixel_Lib.Tween(toggleButton, {BackgroundColor3 = pixel_Lib.Theme.Tab})
+            pixel_Lib.Tween(dot, {Position = UDim2.new(0, 2, 0.5, 0)})
         end
     end
     
@@ -1014,7 +1001,7 @@ function Kurai_Lib:_createToggle(tabName, props, flag)
     return control
 end
 
-function Kurai_Lib:_createDropdown(tabName, props, flag)
+function pixel_Lib:_createDropdown(tabName, props, flag)
     props = props or {}
     local tab = self.Tabs[tabName]
     if not tab then return nil end
@@ -1030,7 +1017,7 @@ function Kurai_Lib:_createDropdown(tabName, props, flag)
     label.Name = "Label"
     label.Text = props.Text or "Dropdown"
     label.Font = Enum.Font.RobotoMono
-    label.TextColor3 = Kurai_Lib.Theme.Text
+    label.TextColor3 = pixel_Lib.Theme.Text
     label.TextSize = 16
     label.TextXAlignment = Enum.TextXAlignment.Left
     label.BackgroundTransparency = 1
@@ -1044,10 +1031,10 @@ function Kurai_Lib:_createDropdown(tabName, props, flag)
     local selectionButton = Instance.new("TextButton")
     selectionButton.Name = "Selection"
     selectionButton.Font = Enum.Font.RobotoMono
-    selectionButton.TextColor3 = Kurai_Lib.Theme.Text
+    selectionButton.TextColor3 = pixel_Lib.Theme.Text
     selectionButton.TextSize = 14
     selectionButton.TextXAlignment = Enum.TextXAlignment.Left
-    selectionButton.BackgroundColor3 = Kurai_Lib.Theme.Tab
+    selectionButton.BackgroundColor3 = pixel_Lib.Theme.Tab
     selectionButton.Size = UDim2.new(1, 0, 0, 30)
     selectionButton.Position = UDim2.new(0, 0, 0, 20)
     selectionButton.Text = props.Default or props.State or (props.Options and props.Options[1]) or "Select..."
@@ -1073,7 +1060,7 @@ function Kurai_Lib:_createDropdown(tabName, props, flag)
     
     local optionsFrame = Instance.new("Frame")
     optionsFrame.Name = "DropdownOptions_" .. (props.Text or "Dropdown")
-    optionsFrame.BackgroundColor3 = Kurai_Lib.Theme.Content
+    optionsFrame.BackgroundColor3 = pixel_Lib.Theme.Content
     optionsFrame.BorderSizePixel = 0
     optionsFrame.Size = UDim2.new(0, 0, 0, 0)
     optionsFrame.Visible = false
@@ -1093,7 +1080,7 @@ function Kurai_Lib:_createDropdown(tabName, props, flag)
     optionsList.CanvasSize = UDim2.new(0, 0, 0, 0)
     optionsList.AutomaticCanvasSize = Enum.AutomaticSize.Y
     optionsList.ScrollBarThickness = 4
-    optionsList.ScrollBarImageColor3 = Kurai_Lib.Theme.Accent
+    optionsList.ScrollBarImageColor3 = pixel_Lib.Theme.Accent
     optionsList.ZIndex = 10
     optionsList.Parent = optionsFrame
     
@@ -1131,10 +1118,10 @@ function Kurai_Lib:_createDropdown(tabName, props, flag)
             optionButton.Name = option
             optionButton.Text = option
             optionButton.Font = Enum.Font.RobotoMono
-            optionButton.TextColor3 = Kurai_Lib.Theme.Text
+            optionButton.TextColor3 = pixel_Lib.Theme.Text
             optionButton.TextSize = 14
             optionButton.TextXAlignment = Enum.TextXAlignment.Left
-            optionButton.BackgroundColor3 = Kurai_Lib.Theme.Tab
+            optionButton.BackgroundColor3 = pixel_Lib.Theme.Tab
             optionButton.BackgroundTransparency = 0.5
             optionButton.Size = UDim2.new(1, -4, 0, 24)
             optionButton.ZIndex = 11
@@ -1150,18 +1137,18 @@ function Kurai_Lib:_createDropdown(tabName, props, flag)
             optionCorner.Parent = optionButton
             
             if option == selectedOption then
-                optionButton.BackgroundColor3 = Kurai_Lib.Theme.Accent
+                optionButton.BackgroundColor3 = pixel_Lib.Theme.Accent
             end
             
             optionButton.MouseEnter:Connect(function()
                 if option ~= selectedOption then
-                    Kurai_Lib.Tween(optionButton, {BackgroundTransparency = 0.2})
+                    pixel_Lib.Tween(optionButton, {BackgroundTransparency = 0.2})
                 end
             end)
             
             optionButton.MouseLeave:Connect(function()
                 if option ~= selectedOption then
-                    Kurai_Lib.Tween(optionButton, {BackgroundTransparency = 0.5})
+                    pixel_Lib.Tween(optionButton, {BackgroundTransparency = 0.5})
                 end
             end)
             
@@ -1173,9 +1160,9 @@ function Kurai_Lib:_createDropdown(tabName, props, flag)
                 for _, btn in pairs(optionsList:GetChildren()) do
                     if btn:IsA("TextButton") then
                         if btn.Name == selectedOption then
-                            Kurai_Lib.Tween(btn, {BackgroundColor3 = Kurai_Lib.Theme.Accent, BackgroundTransparency = 0})
+                            pixel_Lib.Tween(btn, {BackgroundColor3 = pixel_Lib.Theme.Accent, BackgroundTransparency = 0})
                         else
-                            Kurai_Lib.Tween(btn, {BackgroundColor3 = Kurai_Lib.Theme.Tab, BackgroundTransparency = 0.5})
+                            pixel_Lib.Tween(btn, {BackgroundColor3 = pixel_Lib.Theme.Tab, BackgroundTransparency = 0.5})
                         end
                     end
                 end
@@ -1207,13 +1194,13 @@ function Kurai_Lib:_createDropdown(tabName, props, flag)
             optionsFrame.Size = UDim2.new(0, absSize.X, 0, 0)
             optionsFrame.Visible = true
             
-            Kurai_Lib.Tween(optionsFrame, {Size = UDim2.new(0, absSize.X, 0, targetHeight)}, 0.2)
-            Kurai_Lib.Tween(arrowIcon, {Rotation = 180}, 0.2)
+            pixel_Lib.Tween(optionsFrame, {Size = UDim2.new(0, absSize.X, 0, targetHeight)}, 0.2)
+            pixel_Lib.Tween(arrowIcon, {Rotation = 180}, 0.2)
             
             createOptions()
         else
-            Kurai_Lib.Tween(optionsFrame, {Size = UDim2.new(0, optionsFrame.AbsoluteSize.X, 0, 0)}, 0.2)
-            Kurai_Lib.Tween(arrowIcon, {Rotation = 0}, 0.2)
+            pixel_Lib.Tween(optionsFrame, {Size = UDim2.new(0, optionsFrame.AbsoluteSize.X, 0, 0)}, 0.2)
+            pixel_Lib.Tween(arrowIcon, {Rotation = 0}, 0.2)
             
             task.delay(0.2, function()
                 if not isOpen then
@@ -1324,7 +1311,7 @@ function Kurai_Lib:_createDropdown(tabName, props, flag)
     return control
 end
 
-function Kurai_Lib:_createKeybind(tabName, props, flag)
+function pixel_Lib:_createKeybind(tabName, props, flag)
     props = props or {}
     local tab = self.Tabs[tabName]
     if not tab then return nil end
@@ -1455,7 +1442,7 @@ function Kurai_Lib:_createKeybind(tabName, props, flag)
     label.Name = "Label"
     label.Text = props.Text or "Keybind"
     label.Font = Enum.Font.RobotoMono
-    label.TextColor3 = Kurai_Lib.Theme.Text
+    label.TextColor3 = pixel_Lib.Theme.Text
     label.TextSize = 16
     label.TextXAlignment = Enum.TextXAlignment.Left
     label.BackgroundTransparency = 1
@@ -1470,9 +1457,9 @@ function Kurai_Lib:_createKeybind(tabName, props, flag)
     keyButton.Name = "KeyButton"
     keyButton.Text = keys[defaultKey] or defaultKey.Name
     keyButton.Font = Enum.Font.RobotoMono
-    keyButton.TextColor3 = Kurai_Lib.Theme.Text
+    keyButton.TextColor3 = pixel_Lib.Theme.Text
     keyButton.TextSize = 14
-    keyButton.BackgroundColor3 = Kurai_Lib.Theme.Tab
+    keyButton.BackgroundColor3 = pixel_Lib.Theme.Tab
     keyButton.Size = UDim2.new(0, 60, 0, 24)
     keyButton.AnchorPoint = Vector2.new(1, 0.5)
     keyButton.Position = UDim2.new(1, 0, 0.5, 0)
@@ -1492,22 +1479,22 @@ function Kurai_Lib:_createKeybind(tabName, props, flag)
     local function updateVisuals()
         if listening then
             keyButton.Text = "..."
-            Kurai_Lib.Tween(keyButton, {BackgroundColor3 = Kurai_Lib.Theme.Accent})
+            pixel_Lib.Tween(keyButton, {BackgroundColor3 = pixel_Lib.Theme.Accent})
         else
             keyButton.Text = keys[selectedKey] or (type(selectedKey) == "EnumItem" and selectedKey.Name) or "None"
-            Kurai_Lib.Tween(keyButton, {BackgroundColor3 = Kurai_Lib.Theme.Tab})
+            pixel_Lib.Tween(keyButton, {BackgroundColor3 = pixel_Lib.Theme.Tab})
         end
     end
     
     keyButton.MouseEnter:Connect(function()
         if not listening then
-            Kurai_Lib.Tween(keyButton, {BackgroundColor3 = Kurai_Lib.Theme.TabAccent})
+            pixel_Lib.Tween(keyButton, {BackgroundColor3 = pixel_Lib.Theme.TabAccent})
         end
     end)
     
     keyButton.MouseLeave:Connect(function()
         if not listening then
-            Kurai_Lib.Tween(keyButton, {BackgroundColor3 = Kurai_Lib.Theme.Tab})
+            pixel_Lib.Tween(keyButton, {BackgroundColor3 = pixel_Lib.Theme.Tab})
         end
     end)
     
@@ -1601,7 +1588,7 @@ function Kurai_Lib:_createKeybind(tabName, props, flag)
     return control
 end
 
-function Kurai_Lib:_createTextField(tabName, props, flag)
+function pixel_Lib:_createTextField(tabName, props, flag)
     props = props or {}
     local tab = self.Tabs[tabName]
     if not tab then return nil end
@@ -1617,7 +1604,7 @@ function Kurai_Lib:_createTextField(tabName, props, flag)
     label.Name = "Label"
     label.Text = props.Text or "Text Input"
     label.Font = Enum.Font.RobotoMono
-    label.TextColor3 = Kurai_Lib.Theme.Text
+    label.TextColor3 = pixel_Lib.Theme.Text
     label.TextSize = 16
     label.TextXAlignment = Enum.TextXAlignment.Left
     label.BackgroundTransparency = 1
@@ -1633,13 +1620,13 @@ function Kurai_Lib:_createTextField(tabName, props, flag)
     textBox.Font = Enum.Font.RobotoMono
     textBox.Text = props.Default or props.State or ""
     textBox.PlaceholderText = props.Placeholder or "Enter text..."
-    textBox.TextColor3 = Kurai_Lib.Theme.Text
-    textBox.PlaceholderColor3 = Kurai_Lib.Theme.SubText
+    textBox.TextColor3 = pixel_Lib.Theme.Text
+    textBox.PlaceholderColor3 = pixel_Lib.Theme.SubText
     textBox.TextSize = 14
     textBox.TextXAlignment = Enum.TextXAlignment.Left
     textBox.TextWrapped = false
     textBox.ClearTextOnFocus = props.ClearTextOnFocus ~= nil and props.ClearTextOnFocus or false
-    textBox.BackgroundColor3 = Kurai_Lib.Theme.Tab
+    textBox.BackgroundColor3 = pixel_Lib.Theme.Tab
     textBox.Size = UDim2.new(1, 0, 0, 30)
     textBox.Position = UDim2.new(0, 0, 0, 20)
     textBox.ClipsDescendants = true
@@ -1660,7 +1647,7 @@ function Kurai_Lib:_createTextField(tabName, props, flag)
         charLimit.Name = "CharLimit"
         charLimit.Font = Enum.Font.RobotoMono
         charLimit.Text = string.len(textBox.Text) .. "/" .. props.CharLimit
-        charLimit.TextColor3 = Kurai_Lib.Theme.SubText
+        charLimit.TextColor3 = pixel_Lib.Theme.SubText
         charLimit.TextSize = 12
         charLimit.TextXAlignment = Enum.TextXAlignment.Right
         charLimit.BackgroundTransparency = 1
@@ -1675,11 +1662,11 @@ function Kurai_Lib:_createTextField(tabName, props, flag)
     self.Flags[flag or props.Text or "TextField"] = value
     
     textBox.Focused:Connect(function()
-        Kurai_Lib.Tween(textBox, {BackgroundColor3 = Kurai_Lib.Theme.TabAccent})
+        pixel_Lib.Tween(textBox, {BackgroundColor3 = pixel_Lib.Theme.TabAccent})
     end)
     
     textBox.FocusLost:Connect(function(enterPressed)
-        Kurai_Lib.Tween(textBox, {BackgroundColor3 = Kurai_Lib.Theme.Tab})
+        pixel_Lib.Tween(textBox, {BackgroundColor3 = pixel_Lib.Theme.Tab})
         
         value = textBox.Text
         self.Flags[flag or props.Text or "TextField"] = value
@@ -1761,7 +1748,7 @@ function Kurai_Lib:_createTextField(tabName, props, flag)
     return control
 end
 
-function Kurai_Lib.Rainbow(element, speed)
+function pixel_Lib.Rainbow(element, speed)
     speed = speed or 0.5
     local hue = 0
     
@@ -1781,7 +1768,7 @@ function Kurai_Lib.Rainbow(element, speed)
             })[element.ClassName] or "BackgroundColor3"
             
             if element[property] ~= nil then
-                Kurai_Lib.Tween(element, {[property] = color}, speed)
+                pixel_Lib.Tween(element, {[property] = color}, speed)
             end
             
             task.wait(speed)
@@ -1789,4 +1776,4 @@ function Kurai_Lib.Rainbow(element, speed)
     end)()
 end
 
-return Kurai_Lib
+return pixel_Lib
