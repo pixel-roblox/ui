@@ -1,40 +1,34 @@
-# 暗い. | kurai
-
-> 暗い kurai (pronounced "koo-rye") is a sleek ui library focused on simplicity, modern design, and csgo inspired aesthetics.  
-  
-> friendly for both the developer and user's eyes.
-
 ## example 暗い
 ```lua
 loadstring(
-    game:HttpGetAsync 'https://raw.githubusercontent.com/focat69/kurai/refs/heads/main/example.lua'
+    game:HttpGetAsync 'https://raw.githubusercontent.com/focat69/pixel/refs/heads/main/example.lua'
 )()
 ```
 
 ## installation 暗い
 ```lua
 local lib = loadstring(
-    game:HttpGetAsync `https://raw.githubusercontent.com/focat69/kurai/refs/heads/main/source?t={tostring(tick())}`
+    game:HttpGetAsync(`https://raw.githubusercontent.com/pixel-roblox/ui/refs/heads/main/source?t={tostring(tick())}`)
 )()
 ```
 
 ## initialization 暗い
 to create a new instance:
 ```lua
-local kurai = lib.new({
+local pixel = lib.new({
     Name = "screenguiname",             -- (optional) name for the screengui
     GameName = "Phantom Forces",        -- displayed in the title bar
     ScriptHubName = "JewWare Premium",  -- displayed under the game name
     Tabs = {"Main", "Visuals"}          -- tab names for your interface
 })
 
-local mainTab = kurai.Tabs["Main"] -- direct access to tab
-local visualsTab = kurai.Tabs["Visuals"]
+local mainTab = pixel.Tabs["Main"] -- direct access to tab
+local visualsTab = pixel.Tabs["Visuals"]
 ```
 to toggle ui, press `RCTRL`.  
  you can always change this before initialization.
 ```lua
-kurai:SetKeybind(
+pixel:SetKeybind(
     KeyCode: Enum.KeyCode
 ) -- default is right ctrl 暗い
 ```
@@ -192,7 +186,7 @@ textField:Clear()                -- clear the text
 display a temporary notification.
 
 ```lua
-kurai:Notify({
+pixel:Notify({
     Title = "Your Title",        -- title of the notification
     Message = "Your message",    -- text below title/content
     Duration = 5,                -- [optional] duration in seconds (default 5)
@@ -204,18 +198,18 @@ kurai:Notify({
 applies a tween animation to an object.
 
 ```lua
-kurai.Tween(object, properties, duration, easingStyle, easingDirection)
+pixel.Tween(object, properties, duration, easingStyle, easingDirection)
 -- example:
-kurai.Tween(frame, {Size = UDim2.new(0, 200, 0, 50)}, 0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out)
+pixel.Tween(frame, {Size = UDim2.new(0, 200, 0, 50)}, 0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out)
 ```
 
 ### rainbow effect
 applies a rainbow color animation to an element.
 
 ```lua
-kurai.Rainbow(element, speed)
+pixel.Rainbow(element, speed)
 -- example:
-kurai.Rainbow(frame, 0.3)  -- speed is optional (default 0.5)
+pixel.Rainbow(frame, 0.3)  -- speed is optional (default 0.5)
 ```
 
 ## theming 暗い
