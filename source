@@ -197,7 +197,6 @@ function pixel_Lib:Notify(props)
     titleLabel.Text = title
     titleLabel.TextColor3 = pixel_Lib.Theme.Text
     titleLabel.TextSize = 16
-    titleLabel.Font = Enum.Font.RobotoMono
     titleLabel.TextXAlignment = Enum.TextXAlignment.Left
     titleLabel.ZIndex = accentBar.ZIndex
     titleLabel.Parent = notification
@@ -297,8 +296,8 @@ function pixel_Lib:_internal_createloader(options)
     self.Loader.Name = "Loader"
     self.Loader.BackgroundColor3 = pixel_Lib.Theme.Main
     self.Loader.BorderSizePixel = 0
-    self.Loader.Position = UDim2.new(0.5, -150, 0.5, -150)
-    self.Loader.Size = UDim2.new(0, 300, 0, 300)
+    self.Loader.Position = UDim2.new(0.5, -100, 0.5, -50)
+    self.Loader.Size = UDim2.new(0, 200, 0, 100)
     self.Loader.Visible = false
     self.Loader.Parent = self.ScreenGui
     
@@ -307,7 +306,7 @@ function pixel_Lib:_internal_createloader(options)
     self.LoaderBar.Name = "LoaderBar"
     self.LoaderBar.BackgroundColor3 = pixel_Lib.Theme.Accent
     self.LoaderBar.BorderSizePixel = 0
-    self.LoaderBar.Size = UDim2.new(0, 300, 0, 1)
+    self.LoaderBar.Size = UDim2.new(0, 200, 0, 1)
     self.LoaderBar.Parent = self.Loader
     -- [ gay rainbow ]
     pixel_Lib.Rainbow(self.LoaderBar, 0.5)
@@ -319,19 +318,9 @@ function pixel_Lib:_internal_createloader(options)
     self.StatusText.TextColor3 = pixel_Lib.Theme.SubText
     self.StatusText.TextSize = 14
     self.StatusText.BackgroundTransparency = 1
-    self.StatusText.Position = UDim2.new(0.5, -150, 0.1, 0)
-    self.StatusText.Size = UDim2.new(0, 300, 0, 21)
+    self.StatusText.Position = UDim2.new(0.5, -100, 0.5, -7)
+    self.StatusText.Size = UDim2.new(0, 200, 0, 14)
     self.StatusText.Parent = self.Loader
-
-    self.LoaderLogo = Instance.new("ImageLabel")
-    self.LoaderLogo.Image = "rbxassetid://108069710329003"
-    self.LoaderLogo.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    self.LoaderLogo.BackgroundTransparency = 1
-    self.LoaderLogo.BorderColor3 = Color3.fromRGB(0, 0, 0)
-    self.LoaderLogo.BorderSizePixel = 0
-    self.LoaderLogo.Position = UDim2.new(0.416666657, -100, 0.416666657, -100)
-    self.LoaderLogo.Size = UDim2.new(0, 250, 0, 250)
-    self.LoaderLogo.Parent = self.Loader
 
     self.LoaderCredits = Instance.new("TextLabel")
     self.LoaderCredits.Font = Enum.Font.RobotoMono
@@ -342,8 +331,8 @@ function pixel_Lib:_internal_createloader(options)
     self.LoaderCredits.BackgroundTransparency = 1
     self.LoaderCredits.BorderColor3 = Color3.fromRGB(0, 0, 0)
     self.LoaderCredits.BorderSizePixel = 0
-    self.LoaderCredits.Position = UDim2.new(0.5, -150, 0.906666696, 0)
-    self.LoaderCredits.Size = UDim2.new(0, 300, 0, 21)
+    self.LoaderCredits.Position = UDim2.new(0.5, -100, 0.9, 0)
+    self.LoaderCredits.Size = UDim2.new(0, 200, 0, 14)
     self.LoaderCredits.Name = "credits"
     self.LoaderCredits.Parent = self.Loader
     
