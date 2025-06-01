@@ -1,9 +1,9 @@
-local kurai = loadstring(
-    game:HttpGetAsync(`https://raw.githubusercontent.com/focat69/kurai/refs/heads/main/source?t={tostring(tick())}`)
+local pixel = loadstring(
+    game:HttpGetAsync(`https://raw.githubusercontent.com/pixel-roblox/ui/refs/heads/main/source?t={tostring(tick())}`)
 )()
 
-local ui = kurai.new({
-    Name = "Kurai",
+local ui = pixel.new({
+    Name = "pixel",
     GameName = "Phantom Forces",
     ScriptHubName = "暗い | Developer Build",
     Tabs = {"Rage", "Legit", "Visuals", "Misc", "Configs"}
@@ -510,8 +510,8 @@ miscTab:TextField({
 
 ui:SetToggleKeybind(Enum.KeyCode.LeftAlt) -- default is right control
 ui:Notify({
-    Title = "Kurai",
-    Message = "Kurai UI loaded successfully. Press Left Alt to toggle.",
+    Title = "pixel",
+    Message = "pixel UI loaded successfully. Press Left Alt to toggle.",
     Duration = 3,
     Type = "info"
 })
