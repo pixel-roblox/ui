@@ -1,8 +1,4 @@
-## example 暗い
-```lua
-loadstring(
-    game:HttpGetAsync 'https://raw.githubusercontent.com/focat69/pixel/refs/heads/main/example.lua'
-)()
+
 ```
 
 ## installation 暗い
