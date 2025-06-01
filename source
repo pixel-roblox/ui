@@ -1,3 +1,16 @@
+--[[
+暗い pixel.
+a sleek roblox ui library based around simplicity, modern design, and csgo inspired aesthetics.
+
+created by @focat on discord - dm me before using any code from this commercially
+licensed under Creative Commons Zero v.10 Universal (CC0 1.0) Public Domain Dedication
+    > states that you may share/modify this code as you please, but NOT commercially
+    > you also must give credit where it is due!
+
+enjoy!
+sorry for messy code :(
+]]--
+
 local pixel_Lib = {}
 pixel_Lib.__index = pixel_Lib
 
@@ -308,6 +321,20 @@ function pixel_Lib:_internal_createloader(options)
     self.StatusText.Position = UDim2.new(0.5, -100, 0.5, -7)
     self.StatusText.Size = UDim2.new(0, 200, 0, 14)
     self.StatusText.Parent = self.Loader
+
+    self.LoaderCredits = Instance.new("TextLabel")
+    self.LoaderCredits.Font = Enum.Font.RobotoMono
+    self.LoaderCredits.Text = ""
+    self.LoaderCredits.TextColor3 = Color3.fromRGB(89.00000229477882, 89.00000229477882, 89.00000229477882)
+    self.LoaderCredits.TextSize = 12
+    self.LoaderCredits.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    self.LoaderCredits.BackgroundTransparency = 1
+    self.LoaderCredits.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    self.LoaderCredits.BorderSizePixel = 0
+    self.LoaderCredits.Position = UDim2.new(0.5, -100, 0.9, 0)
+    self.LoaderCredits.Size = UDim2.new(0, 200, 0, 14)
+    self.LoaderCredits.Name = "credits"
+    self.LoaderCredits.Parent = self.Loader
     
     self:_internal_initload(options)
 end
