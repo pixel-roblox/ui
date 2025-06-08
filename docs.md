@@ -3,7 +3,7 @@
 ## installation 暗い
 ```lua
 local lib = loadstring(
-    game:HttpGetAsync(`https://raw.githubusercontent.com/pixel-roblox/ui/refs/heads/main/source?t={tostring(tick())}`)
+    game:HttpGetAsync("https://raw.githubusercontent.com/pixel-roblox/ui/refs/heads/main/source?t=" .. tostring(tick()))
 )()
 ```
 
